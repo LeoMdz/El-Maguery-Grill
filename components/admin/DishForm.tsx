@@ -58,7 +58,7 @@ export default function DishForm({ dish, onClose, onSuccess }: DishFormProps) {
     setFormData(prev => ({
       ...prev,
       tags: prev.tags.includes(tag)
-        ? prev.tags.filter(t => t !== tag)
+       ? prev.tags.filter((t: string) => t !== tag)
         : [...prev.tags, tag],
     }));
   };
