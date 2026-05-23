@@ -6,6 +6,11 @@ const nextConfig = {
         protocol: 'https',
         hostname: '**.amazonaws.com',
       },
+      {
+        protocol: 'https',
+        hostname: 'images.unsplash.com',
+        // Opcional: pathname: '/**',   // permite cualquier ruta
+      },
     ],
   },
   compress: true,

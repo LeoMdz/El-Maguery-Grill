@@ -25,6 +25,15 @@ module.exports = {
       boxShadow: {
         'amber-glow': '0 0 20px rgba(245, 158, 11, 0.3)',
       },
+      keyframes: {
+        'slow-zoom': {
+          '0%': { transform: 'scale(1)' },
+          '100%': { transform: 'scale(1.1)' },
+        },
+      },
+      animation: {
+        'slow-zoom': 'slow-zoom 20s ease-out forwards',
+      },
     },
   },
   plugins: [],
