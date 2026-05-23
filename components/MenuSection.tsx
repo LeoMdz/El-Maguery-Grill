@@ -1,197 +1,144 @@
 'use client';
 
 import { useState } from 'react';
-import { Leaf, Wheat } from 'lucide-react';
-
-interface MenuItem {
-  id: string;
-  name: string;
-  description: string;
-  price: number;
-  tags: Array<'vegan' | 'gluten-free' | 'spicy'>;
-}
-
-const MENU_DATA: Record<string, MenuItem[]> = {
-  entradas: [
-    {
-      id: 'e1',
-      name: 'Tabla de Quesos Artesanales',
-      description: 'Selección de quesos premium de la región con mermelada de higos casera',
-      price: 18.5,
-      tags: ['vegan'],
-    },
-    {
-      id: 'e2',
-      name: 'Tarta de Camarones',
-      description: 'Camarones frescos con mayonesa casera, puerro y decoración de caviar',
-      price: 24.0,
-      tags: [],
-    },
-    {
-      id: 'e3',
-      name: 'Crema de Champiñones Silvestres',
-      description: 'Sopa cremosa con champiñones del bosque, trufa negra y croûtons',
-      price: 16.0,
-      tags: ['gluten-free'],
-    },
-    {
-      id: 'e4',
-      name: 'Remolacha Confitada',
-      description: 'Remolacha caramelizada, queso de cabra y vinagreta balsámica',
-      price: 14.5,
-      tags: ['vegan', 'gluten-free'],
-    },
-  ],
-  fuertes: [
-    {
-      id: 'f1',
-      name: 'Filete de Res Marmóreado',
-      description: 'Corte Premium de 250g, acompañado de puré de papas trufado y espárragos',
-      price: 52.0,
-      tags: ['gluten-free'],
-    },
-    {
-      id: 'f2',
-      name: 'Lubina a la Sal',
-      description: 'Lubina fresca cocida en corteza de sal marina, limón y hierbas aromáticas',
-      price: 48.0,
-      tags: ['gluten-free'],
-    },
-    {
-      id: 'f3',
-      name: 'Risotto de Hongos y Azafrán',
-      description: 'Arroz Carnaroli cremoso con hongos porcini, queso Parmesano y azafrán',
-      price: 34.0,
-      tags: ['vegan', 'gluten-free'],
-    },
-    {
-      id: 'f4',
-      name: 'Pato Confitado',
-      description: 'Pato de corral cocido lentamente, acompañado de naranja agria y papas fondant',
-      price: 46.0,
-      tags: ['gluten-free'],
-    },
-  ],
-  bebidas: [
-    {
-      id: 'b1',
-      name: 'Vino Tinto Reserva',
-      description: 'Tempranillo 2018 de La Rioja, con notas de cerezas y especias',
-      price: 45.0,
-      tags: ['vegan', 'gluten-free'],
-    },
-    {
-      id: 'b2',
-      name: 'Champagne Brut',
-      description: 'Champagne francés con burbuja fina y notas de manzana verde',
-      price: 65.0,
-      tags: ['vegan', 'gluten-free'],
-    },
-    {
-      id: 'b3',
-      name: 'Agua Mineral Premium',
-      description: 'Agua cristalina de manantial, servida con hielo y limón fresco',
-      price: 8.0,
-      tags: ['vegan', 'gluten-free'],
-    },
-    {
-      id: 'b4',
-      name: 'Cóctel de la Casa',
-      description: 'Mezcla especial con vodka premium, licor de café y espuma de vainilla',
-      price: 16.0,
-      tags: ['vegan', 'gluten-free'],
-    },
-  ],
-};
+import { Leaf, Flame, Star } from 'lucide-react';
+import { useDishes } from '@/Lib/hooks/useDishes';
 
 const TAG_CONFIG = {
-  vegan: { icon: Leaf, label: 'Vegano', color: 'bg-green-500/20 text-green-300 border-green-500/40' },
-  'gluten-free': {
-    icon: Wheat,
-    label: 'Sin Gluten',
-    color: 'bg-blue-500/20 text-blue-300 border-blue-500/40',
-  },
-  spicy: { icon: null, label: 'Picante', color: 'bg-red-500/20 text-red-300 border-red-500/40' },
+  especialidad: { icon: Flame, label: 'Especialidad', color: 'bg-red-500/20 text-red-300 border-red-500/40' },
+  popular: { icon: Star, label: 'Popular', color: 'bg-yellow-500/20 text-yellow-300 border-yellow-500/40' },
+  vegano: { icon: Leaf, label: 'Vegetariano', color: 'bg-green-500/20 text-green-300 border-green-500/40' },
 };
 
-export default function MenuSection() {
-  const [activeTab, setActiveTab] = useState<'entradas' | 'fuertes' | 'bebidas'>('entradas');
+const CATEGORIES = [
+  { key: 'entradas', label: 'Entradas' },
+  { key: 'principales', label: 'Al Grill' },
+  { key: 'antojitos', label: 'Antojitos' },
+  { key: 'bebidas', label: 'Bebidas' },
+];
 
-  const items = MENU_DATA[activeTab];
+export default function MenuSection() {
+  const [activeTab, setActiveTab] = useState<'entradas' | 'principales' | 'antojitos' | 'bebidas'>('principales');
+  const { dishes, loading, error } = useDishes(activeTab);
 
   return (
     <section id="menu" className="py-24 bg-gradient-to-b from-stone-950 to-stone-900">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
-        <div className="text-center mb-16">
+        <div className="text-center mb-16 animate-fade-in-up">
           <h2 className="font-serif text-4xl sm:text-5xl font-bold text-stone-50 mb-4">
             Nuestro Menú
           </h2>
           <p className="text-stone-400 text-lg max-w-2xl mx-auto">
-            Descubre nuestra selección curada de platos, preparados con ingredientes frescos y de la más alta calidad.
+            Descubre nuestra selección curada de platillos, todos preparados con ingredientes frescos y cocinados al carbón con maestría.
           </p>
         </div>
 
         {/* Tabs */}
-        <div className="flex justify-center gap-4 mb-12 flex-wrap">
-          {['entradas', 'fuertes', 'bebidas'].map((tab) => (
+        <div className="flex justify-center gap-3 mb-12 flex-wrap">
+          {CATEGORIES.map((tab) => (
             <button
-              key={tab}
-              onClick={() => setActiveTab(tab as typeof activeTab)}
-              className={`px-8 py-3 rounded-lg font-semibold transition-all duration-300 capitalize ${
-                activeTab === tab
-                  ? 'bg-gradient-to-r from-amber-500 to-amber-600 text-stone-950 shadow-lg shadow-amber-500/50'
+              key={tab.key}
+              onClick={() => setActiveTab(tab.key as typeof activeTab)}
+              className={`px-8 py-3 rounded-lg font-semibold transition-all duration-300 ${
+                activeTab === tab.key
+                  ? 'bg-gradient-to-r from-amber-500 to-amber-600 text-stone-950 shadow-lg shadow-amber-500/50 scale-105'
                   : 'bg-stone-800 text-stone-300 hover:bg-stone-700'
               }`}
             >
-              {tab === 'entradas' && 'Entradas'}
-              {tab === 'fuertes' && 'Platos Fuertes'}
-              {tab === 'bebidas' && 'Bebidas'}
+              {tab.label}
             </button>
           ))}
         </div>
 
+        {/* Loading State */}
+        {loading && (
+          <div className="flex justify-center items-center py-12">
+            <div className="w-12 h-12 border-4 border-amber-500 border-t-transparent rounded-full animate-spin"></div>
+          </div>
+        )}
+
+        {/* Error State */}
+        {error && (
+          <div className="bg-red-500/20 border border-red-500/50 rounded-lg p-6 text-center">
+            <p className="text-red-300 font-semibold">Error al cargar el menú</p>
+            <p className="text-red-200 text-sm mt-2">{error}</p>
+          </div>
+        )}
+
         {/* Menu Items Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {items.map((item) => (
-            <div
-              key={item.id}
-              className="group bg-stone-800/50 backdrop-blur-sm border border-stone-700 rounded-xl p-6 hover:border-amber-500/50 transition-all duration-300 hover:shadow-xl hover:shadow-amber-500/10"
-            >
-              {/* Top Section: Name and Price */}
-              <div className="flex justify-between items-start mb-3">
-                <h3 className="font-serif text-xl font-bold text-stone-50 flex-1 group-hover:text-amber-400 transition-colors">
-                  {item.name}
-                </h3>
-                <span className="ml-4 font-serif text-2xl font-bold text-amber-500">
-                  ${item.price.toFixed(2)}
-                </span>
-              </div>
+        {!loading && !error && (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
+            {dishes.length > 0 ? (
+              dishes.map((item, index) => (
+                <div
+                  key={item.id}
+                  className="group bg-stone-800/50 backdrop-blur-sm border border-stone-700 rounded-xl overflow-hidden hover:border-amber-500/50 transition-all duration-300 hover:shadow-xl hover:shadow-amber-500/10 animate-fade-in-up"
+                  style={{ animationDelay: `${index * 0.1}s` }}
+                >
+                  {/* Image Container */}
+                  <div className="relative h-48 overflow-hidden bg-stone-700">
+                    {item.image_url && item.image_url.length > 0 ? (
+                      <>
+                        <img
+                          src={item.image_url}
+                          alt={item.name}
+                          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                          loading="lazy"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-stone-950/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                      </>
+                    ) : (
+                      <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-stone-700 to-stone-800">
+                        <span className="text-stone-500 text-sm">Sin imagen</span>
+                      </div>
+                    )}
+                  </div>
 
-              {/* Description */}
-              <p className="text-stone-400 text-sm mb-4 line-clamp-2">
-                {item.description}
-              </p>
-
-              {/* Tags */}
-              <div className="flex flex-wrap gap-2">
-                {item.tags.map((tag) => {
-                  const config = TAG_CONFIG[tag];
-                  const Icon = config.icon;
-                  return (
-                    <div
-                      key={tag}
-                      className={`flex items-center gap-1 px-3 py-1 rounded-full border text-xs font-medium ${config.color}`}
-                    >
-                      {Icon && <Icon className="w-3 h-3" />}
-                      <span>{config.label}</span>
+                  {/* Content */}
+                  <div className="p-6">
+                    {/* Top Section: Name and Price */}
+                    <div className="flex justify-between items-start mb-3">
+                      <h3 className="font-serif text-xl font-bold text-stone-50 flex-1 group-hover:text-amber-400 transition-colors">
+                        {item.name}
+                      </h3>
+                      <span className="ml-4 font-serif text-2xl font-bold text-amber-500 whitespace-nowrap">
+                        ${item.price.toFixed(0)}
+                      </span>
                     </div>
-                  );
-                })}
+
+                    {/* Description */}
+                    <p className="text-stone-400 text-sm mb-4 line-clamp-2">
+                      {item.description}
+                    </p>
+
+                    {/* Tags */}
+                    <div className="flex flex-wrap gap-2">
+                      {item.tags && item.tags.length > 0 && item.tags.map((tag) => {
+                        const config = TAG_CONFIG[tag as keyof typeof TAG_CONFIG];
+                        if (!config) return null;
+                        const Icon = config.icon;
+                        return (
+                          <div
+                            key={tag}
+                            className={`flex items-center gap-1 px-3 py-1 rounded-full border text-xs font-medium ${config.color}`}
+                          >
+                            <Icon className="w-3 h-3" />
+                            <span>{config.label}</span>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                </div>
+              ))
+            ) : (
+              <div className="col-span-full text-center py-12">
+                <p className="text-stone-400 text-lg">No hay platillos disponibles en esta categoría</p>
               </div>
-            </div>
-          ))}
-        </div>
+            )}
+          </div>
+        )}
       </div>
     </section>
   );

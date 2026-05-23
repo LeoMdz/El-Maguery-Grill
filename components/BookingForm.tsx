@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, FormEvent } from 'react';
-import { Clock, Users, Mail, Phone } from 'lucide-react';
+import { Clock, Users, Mail, Phone, CheckCircle, AlertCircle } from 'lucide-react';
 
 interface FormState {
   name: string;
@@ -68,7 +68,7 @@ export default function BookingForm() {
         message: '',
       });
 
-      setTimeout(() => setSubmitted(false), 5000);
+      setTimeout(() => setSubmitted(false), 6000);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Error desconocido');
     } finally {
@@ -76,42 +76,42 @@ export default function BookingForm() {
     }
   };
 
-  // Get today's date in YYYY-MM-DD format to set min attribute
+  // Get today's date in YYYY-MM-DD format
   const today = new Date().toISOString().split('T')[0];
 
   return (
-    <section id="booking-form" className="py-24 bg-stone-950">
+    <section id="booking-form" className="py-24 bg-gradient-to-b from-stone-900 to-stone-950">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
-        <div className="text-center mb-16">
+        <div className="text-center mb-16 animate-fade-in-up">
           <h2 className="font-serif text-4xl sm:text-5xl font-bold text-stone-50 mb-4">
             Reserva Tu Mesa
           </h2>
           <p className="text-stone-400 text-lg">
-            Asegura tu lugar en nuestro restaurante premium. Solo tienes que llenar el formulario.
+            Asegura tu lugar en El Maguey - Grill. ¡Te esperamos con los mejores sabores al carbón!
           </p>
         </div>
 
         {/* Form Card */}
-        <div className="bg-gradient-to-br from-stone-900 to-stone-950 border border-stone-800 rounded-2xl p-8 sm:p-12 shadow-2xl">
+        <div className="bg-gradient-to-br from-stone-900 to-stone-950 border border-stone-800 rounded-2xl p-8 sm:p-12 shadow-2xl animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
           {submitted && (
-            <div className="mb-8 p-4 bg-green-500/20 border border-green-500/50 rounded-lg flex items-start gap-3">
+            <div className="mb-8 p-4 bg-green-500/20 border border-green-500/50 rounded-lg flex items-start gap-3 animate-scale-in">
               <div className="w-6 h-6 rounded-full bg-green-500 flex items-center justify-center flex-shrink-0 mt-0.5">
-                <span className="text-stone-950 font-bold">✓</span>
+                <CheckCircle className="w-4 h-4 text-stone-950" />
               </div>
               <div>
                 <p className="font-semibold text-green-300">¡Reserva enviada exitosamente!</p>
                 <p className="text-green-200 text-sm mt-1">
-                  Recibirás una confirmación en tu email en breve. Gracias por elegirnos.
+                  Recibirás una confirmación en tu email en breve. Gracias por elegir El Maguey - Grill.
                 </p>
               </div>
             </div>
           )}
 
           {error && (
-            <div className="mb-8 p-4 bg-red-500/20 border border-red-500/50 rounded-lg flex items-start gap-3">
+            <div className="mb-8 p-4 bg-red-500/20 border border-red-500/50 rounded-lg flex items-start gap-3 animate-scale-in">
               <div className="w-6 h-6 rounded-full bg-red-500 flex items-center justify-center flex-shrink-0 mt-0.5">
-                <span className="text-stone-950 font-bold">!</span>
+                <AlertCircle className="w-4 h-4 text-stone-950" />
               </div>
               <div>
                 <p className="font-semibold text-red-300">Error</p>
@@ -134,7 +134,7 @@ export default function BookingForm() {
                   value={formData.name}
                   onChange={handleChange}
                   required
-                  placeholder="Juan Pérez"
+                  placeholder="Tu nombre"
                   className="w-full px-4 py-3 bg-stone-800 border border-stone-700 rounded-lg text-stone-50 placeholder-stone-600 focus:outline-none focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20 transition-all"
                 />
               </div>
@@ -149,7 +149,7 @@ export default function BookingForm() {
                   value={formData.email}
                   onChange={handleChange}
                   required
-                  placeholder="juan@ejemplo.com"
+                  placeholder="tu@email.com"
                   className="w-full px-4 py-3 bg-stone-800 border border-stone-700 rounded-lg text-stone-50 placeholder-stone-600 focus:outline-none focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20 transition-all"
                 />
               </div>
@@ -157,7 +157,8 @@ export default function BookingForm() {
 
             {/* Row 2: Phone */}
             <div>
-              <label htmlFor="phone" className="block text-stone-300 font-medium mb-2">
+              <label htmlFor="phone" className="block text-stone-300 font-medium mb-2 flex items-center gap-2">
+                <Phone className="w-4 h-4" />
                 Teléfono de Contacto
               </label>
               <input
@@ -166,7 +167,7 @@ export default function BookingForm() {
                 name="phone"
                 value={formData.phone}
                 onChange={handleChange}
-                placeholder="+34 600 123 456"
+                placeholder="+52 733 131 7075"
                 className="w-full px-4 py-3 bg-stone-800 border border-stone-700 rounded-lg text-stone-50 placeholder-stone-600 focus:outline-none focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20 transition-all"
               />
             </div>
@@ -237,7 +238,7 @@ export default function BookingForm() {
                 name="message"
                 value={formData.message}
                 onChange={handleChange}
-                placeholder="Cuéntanos si tienes alguna solicitud especial..."
+                placeholder="Cuéntanos si tienes alguna solicitud especial o celebración..."
                 rows={4}
                 className="w-full px-4 py-3 bg-stone-800 border border-stone-700 rounded-lg text-stone-50 placeholder-stone-600 focus:outline-none focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20 transition-all resize-none"
               />
@@ -247,9 +248,16 @@ export default function BookingForm() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full py-4 bg-gradient-to-r from-amber-500 to-amber-600 text-stone-950 font-semibold rounded-lg hover:shadow-xl hover:shadow-amber-500/50 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed disabled:shadow-none text-base font-serif"
+              className="w-full py-4 bg-gradient-to-r from-amber-500 to-amber-600 text-stone-950 font-semibold rounded-lg hover:shadow-xl hover:shadow-amber-500/50 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed disabled:shadow-none text-base font-serif btn-hover"
             >
-              {loading ? 'Procesando...' : 'Confirmar Reserva'}
+              {loading ? (
+                <span className="flex items-center justify-center gap-2">
+                  <div className="w-4 h-4 border-2 border-stone-950 border-t-transparent rounded-full animate-spin"></div>
+                  Procesando...
+                </span>
+              ) : (
+                'Confirmar Reserva'
+              )}
             </button>
 
             <p className="text-center text-stone-500 text-sm">

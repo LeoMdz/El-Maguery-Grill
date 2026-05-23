@@ -37,12 +37,13 @@ export default function Navbar() {
         <div className="flex justify-between items-center h-20">
           {/* Logo */}
           <div className="flex items-center space-x-2">
-            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-amber-500 to-amber-600 flex items-center justify-center">
-              <span className="text-stone-950 font-serif font-bold text-lg">R</span>
+            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-amber-500 to-amber-600 flex items-center justify-center shadow-lg shadow-amber-500/50">
+              <span className="text-stone-950 font-serif font-bold text-lg">M</span>
             </div>
-            <span className="hidden sm:block text-xl font-serif font-bold text-stone-50">
-              Restaurant Premium
-            </span>
+            <div className="hidden sm:block">
+              <p className="text-sm font-serif font-bold text-amber-400">El Maguey</p>
+              <p className="text-xs text-stone-300">- Grill -</p>
+            </div>
           </div>
 
           {/* Desktop Menu */}
@@ -70,17 +71,17 @@ export default function Navbar() {
           {/* CTA Button Desktop */}
           <div className="hidden md:flex items-center space-x-4">
             <a
-              href="tel:+34123456789"
+              href="tel:+527331317075"
               className="flex items-center space-x-2 text-stone-300 hover:text-amber-500 transition-colors"
             >
               <Phone className="w-4 h-4" />
-              <span className="text-sm">+34 123 456 789</span>
+              <span className="text-sm">+52 733 131 7075</span>
             </a>
             <button
               onClick={() => scrollToSection('booking-form')}
-              className="px-6 py-2 bg-gradient-to-r from-amber-500 to-amber-600 text-stone-950 font-semibold rounded-lg hover:shadow-lg hover:shadow-amber-500/50 transition-all duration-300 text-sm"
+              className="px-6 py-2 bg-gradient-to-r from-amber-500 to-amber-600 text-stone-950 font-semibold rounded-lg hover:shadow-lg hover:shadow-amber-500/50 transition-all duration-300 text-sm animate-pulse-custom"
             >
-              Reservar Ahora
+              Reservar
             </button>
           </div>
 
@@ -99,7 +100,7 @@ export default function Navbar() {
 
         {/* Mobile Menu */}
         {isOpen && (
-          <div className="md:hidden bg-stone-900/95 backdrop-blur-md border-t border-stone-800">
+          <div className="md:hidden bg-stone-900/95 backdrop-blur-md border-t border-stone-800 animate-slide-down">
             <div className="px-4 py-4 space-y-4">
               <button
                 onClick={() => scrollToSection('menu')}

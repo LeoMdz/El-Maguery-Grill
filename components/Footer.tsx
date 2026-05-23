@@ -1,41 +1,81 @@
+import { Share2, Phone, MapPin, Clock } from 'lucide-react';
+
 export default function Footer() {
   return (
     <footer id="contact" className="bg-stone-950 border-t border-stone-800">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
           {/* Column 1: About */}
-          <div>
-            <h3 className="font-serif text-xl font-bold text-stone-50 mb-4">Restaurant Premium</h3>
+          <div className="animate-fade-in-up">
+            <h3 className="font-serif text-2xl font-bold text-amber-400 mb-4">El Maguey - Grill</h3>
             <p className="text-stone-400 text-sm leading-relaxed">
-              Desde 2015, ofrecemos una experiencia gastronómica única donde la pasión por la cocina se encuentra
-              con la excelencia en el servicio.
+              El auténtico sabor de la parrilla en Iguala. Combinamos la tradición culinaria de Guerrero 
+              con el arte de cocinar al carbón. Desde 2015, sirviendo con pasión a nuestra comunidad.
             </p>
+            <div className="mt-6 flex gap-4">
+              <a
+                href="https://www.facebook.com/Elmagueygrillgro/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-10 h-10 bg-amber-500/20 rounded-full flex items-center justify-center text-amber-500 hover:bg-amber-500/40 transition-all"
+                title="Facebook"
+              >
+                <Share2 className="w-5 h-5" />
+              </a>
+              <a
+                href="tel:+527331317075"
+                className="w-10 h-10 bg-amber-500/20 rounded-full flex items-center justify-center text-amber-500 hover:bg-amber-500/40 transition-all"
+                title="Teléfono"
+              >
+                <Phone className="w-5 h-5" />
+              </a>
+            </div>
           </div>
 
           {/* Column 2: Hours */}
-          <div>
-            <h4 className="font-semibold text-stone-50 mb-4">Horario</h4>
-            <div className="space-y-2 text-stone-400 text-sm">
-              <p>Martes - Jueves: 18:00 - 23:00</p>
-              <p>Viernes - Sábado: 18:00 - 00:00</p>
-              <p>Domingo: 12:30 - 23:00</p>
-              <p className="text-amber-500 font-semibold mt-2">Cerrado los lunes</p>
+          <div className="animate-fade-in-up" style={{ animationDelay: '0.1s' }}>
+            <h4 className="font-semibold text-stone-50 mb-4 flex items-center gap-2">
+              <Clock className="w-5 h-5 text-amber-500" />
+              Horario de Atención
+            </h4>
+            <div className="space-y-3 text-stone-400 text-sm">
+              <div>
+                <p className="text-amber-400 font-semibold">Lunes a Viernes</p>
+                <p>9:00 AM - 3:00 PM</p>
+                <p>5:00 PM - 12:00 AM</p>
+              </div>
+              <div>
+                <p className="text-amber-400 font-semibold">Sábado</p>
+                <p>9:00 AM - 12:00 AM (Abierto)</p>
+              </div>
+              <div>
+                <p className="text-amber-400 font-semibold">Domingo</p>
+                <p>9:00 AM - 3:00 PM</p>
+                <p>5:00 PM - 12:00 AM</p>
+              </div>
             </div>
           </div>
 
           {/* Column 3: Contact */}
-          <div>
-            <h4 className="font-semibold text-stone-50 mb-4">Contacto</h4>
-            <div className="space-y-2 text-stone-400 text-sm">
-              <p>📍 Calle Principal 123, Madrid 28001</p>
-              <p>📞 +34 123 456 789</p>
-              <p>📧 info@restaurantpremium.es</p>
-              <div className="flex gap-4 mt-4">
-                <a href="#" className="text-amber-500 hover:text-amber-400 transition-colors">
-                  Instagram
-                </a>
-                <a href="#" className="text-amber-500 hover:text-amber-400 transition-colors">
-                  Facebook
+          <div className="animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
+            <h4 className="font-semibold text-stone-50 mb-4 flex items-center gap-2">
+              <MapPin className="w-5 h-5 text-amber-500" />
+              Ubicación
+            </h4>
+            <div className="space-y-4 text-stone-400 text-sm">
+              <p>
+                Periférico Oriente, Col. Periodista<br />
+                C.P. 40050<br />
+                Iguala de la Independencia, Guerrero<br />
+                México
+              </p>
+              <div className="pt-4 border-t border-stone-800">
+                <p className="text-stone-300 font-semibold mb-2">Reservaciones</p>
+                <a
+                  href="tel:+527331317075"
+                  className="text-amber-400 hover:text-amber-500 transition-colors font-semibold text-base"
+                >
+                  +52 733 131 7075
                 </a>
               </div>
             </div>
@@ -44,9 +84,14 @@ export default function Footer() {
 
         {/* Divider */}
         <div className="border-t border-stone-800 pt-8">
-          <p className="text-center text-stone-500 text-sm">
-            &copy; 2024 Restaurant Premium. Todos los derechos reservados.
-          </p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-center md:text-left">
+            <p className="text-stone-500 text-sm">
+              &copy; 2024 El Maguey - Grill. Todos los derechos reservados.
+            </p>
+            <p className="text-stone-500 text-sm">
+              Diseño y Desarrollo con ❤️ para el sabor de Guerrero
+            </p>
+          </div>
         </div>
       </div>
     </footer>
